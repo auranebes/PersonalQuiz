@@ -34,8 +34,6 @@ extension ResultsViewController {
     private func getResult() {
         //let dictCats: Dictionary<AnimalType, Int>
         let typesOfAnswers = answers.map({$0.type})
-        print(typesOfAnswers)
-        //showCurrent()
     }
     
 }
