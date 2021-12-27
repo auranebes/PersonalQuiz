@@ -32,8 +32,36 @@ class ResultsViewController: UIViewController {
 
 extension ResultsViewController {
     private func getResult() {
-        //let dictCats: Dictionary<AnimalType, Int>
+        var amountOfAnimals: [AnimalType : Int] = [:]
         let typesOfAnswers = answers.map({$0.type})
+        
+        for animal in typesOfAnswers {
+            if let anumalTypeOfCount = amountOfAnimals[animal] {
+                amountOfAnimals.updateValue(anumalTypeOfCount + 1, forKey: animal)
+            } else {
+                amountOfAnimals[animal] = 1
+            }
+        }
+        
+//        for animal in animals {
+//            frequencyOfAnimals[animal] = (frequencyOfAnimals[animal] ?? 0) + 1
+//        }
+        
+        let sortedAmountOfAnimals = amountOfAnimals.sorted { $0.value > $1.value }
+        guard let firstAnimal = sortedAmountOfAnimals.first?.key else { return }
+        
+           // Решение в одну строку:
+
+//        let mostFrequencyAnimal = Dictionary(grouping: answers) { $0.type }
+//            .sorted { $0.value.count > $1.value.count }
+//            .first?.key
+        
+        updateUI(with: firstAnimal)
+    }
+    
+    private func updateUI(with animal: AnimalType?) {
+        mainLabel.text = "Вы - \(animal?.rawValue ?? "🐶" )!"
+        textLabel.text = animal?.definition ?? ""
     }
     
 }
